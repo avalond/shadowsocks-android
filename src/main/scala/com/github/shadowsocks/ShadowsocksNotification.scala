@@ -79,15 +79,11 @@ class ShadowsocksNotification(private val service: BaseService, profileName: Str
 
   def setVisible(visible: Boolean, forceShow: Boolean = false) = if (isVisible != visible) {
     isVisible = visible
-    builder.setPriority(if (visible) NotificationCompat.PRIORITY_DEFAULT else NotificationCompat.PRIORITY_MIN)
+    builder.setPriority(if (visible) NotificationCompat.PRIORITY_LOW else NotificationCompat.PRIORITY_MIN)
     show()
   } else if (forceShow) show()
 
-  private lazy val intent = new Intent(service, service.getClass)
-  def show() = {
-    service.startService(intent)
-    service.startForeground(1, builder.build)
-  }
+  def show() = service.startForeground(1, builder.build)
 
   def destroy() {
     if (lockReceiver != null) {
@@ -96,7 +92,6 @@ class ShadowsocksNotification(private val service: BaseService, profileName: Str
     }
     unregisterCallback
     service.stopForeground(true)
-    service.stopService(intent)
     nm.cancel(1)
   }
 }

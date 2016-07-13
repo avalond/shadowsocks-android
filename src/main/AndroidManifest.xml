@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="com.github.shadowsocks"
-          android:versionCode="138"
-          android:versionName="2.10.5">
+          android:versionCode="140"
+          android:versionName="2.10.7">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -9,13 +9,14 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature
-            android:name="android.hardware.touchscreen"
-            android:required="false"/>
+    <uses-feature android:name="android.hardware.touchscreen"
+                  android:required="false"/>
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="false"/>
+    <uses-feature android:name="android.hardware.nfc"
+                  android:required="false"/>
     <uses-feature android:name="android.software.leanback"
-                  android:required="false" />
-
-    <uses-feature android:name="android.hardware.nfc" android:required="false" />
+                  android:required="false"/>
 
     <uses-sdk
             android:minSdkVersion="16"
@@ -56,7 +57,6 @@
 
         <activity
                 android:name=".ShadowsocksRunnerActivity"
-                android:process=":bg"
                 android:theme="@android:style/Theme.NoDisplay"
                 android:excludeFromRecents="true"
                 android:launchMode="singleTask">
@@ -100,7 +100,6 @@
                 android:launchMode="singleTask"/>
 
         <activity android:name=".TaskerActivity"
-                  android:process=":bg"
                   android:icon="@drawable/ic_launcher">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
@@ -108,7 +107,6 @@
         </activity>
 
         <activity android:name=".ShadowsocksQuickSwitchActivity"
-                  android:process=":bg"
                   android:launchMode="singleInstance"
                   android:excludeFromRecents="true"
                   android:taskAffinity=""
@@ -121,7 +119,6 @@
 
         <service
                 android:name=".ShadowsocksRunnerService"
-                android:process=":bg"
                 android:exported="false">
         </service>
 
@@ -151,13 +148,13 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".BootReceiver" android:enabled="false" android:process=":bg">
+        <receiver android:name=".BootReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".TaskerReceiver" tools:ignore="ExportedReceiver" android:process=":bg">
+        <receiver android:name=".TaskerReceiver" tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
             </intent-filter>
